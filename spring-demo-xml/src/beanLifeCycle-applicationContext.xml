@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 
+        Add a logger config to see logging messages.        
+        - For more detailed logs, set values to "FINEST"
+        - For info on logging levels, see: http://www.vogella.com/tutorials/Logging/article.html
+    -->
+    <bean id = "myLoggerConfig" class = "com.spring.demo.MyLoggerConfig" init-method = "initLogger">
+        <property name = "rootLoggerLevel" value = "FINE" />
+        <property name = "printedLoggerLevel" value = "FINE"/>
+    </bean>
+
+	<!-- Define the Dependency -->
+    <bean id = "myFortuneService"
+        class = "com.spring.demo.RandomFortuneService">
+    </bean>
+    
+    <bean id = "myCoach"
+        class = "com.spring.demo.TrackCoach"
+        init-method = "doMyStartUpStuff"
+        scope = "prototype">
+        <!-- Set up Constructor Injection -->
+        <constructor-arg ref = "myFortuneService"/>
+    </bean>
+    
+    <bean id = "myTennisCoach"
+        class = "com.spring.demo.TennisCoach"
+        init-method = "startUpProcess"
+        destroy-method = "cleanUpProcess">
+        <constructor-arg ref = "myFortuneService"/>
+    </bean>
+    
+    <!-- Bean custom processor to handle calling destroy methods on prototype scoped beans -->
+    <bean id = "customProcessor"
+        class = "com.spring.demo.MyCustomBeanProcessor">
+    </bean>
+  
+</beans>
