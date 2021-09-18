@@ -1,0 +1,65 @@
+DROP SCHEMA IF EXISTS university;
+CREATE SCHEMA university;
+USE university;
+
+DROP TABLE IF EXISTS instructor_detail;
+
+CREATE TABLE instructor_detail (
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	youtube_channel VARCHAR(128) DEFAULT NULL,
+	hobby VARCHAR(45) DEFAULT NULL
+);
+
+DROP TABLE IF EXISTS instructor;
+
+CREATE TABLE instructor (
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(45) DEFAULT NULL,
+	last_name VARCHAR(45) DEFAULT NULL,
+	email VARCHAR(45) DEFAULT NULL,
+    instructor_detail_id INT DEFAULT NULL,
+	FOREIGN KEY (instructor_detail_id) REFERENCES instructor_detail(id) 
+    ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
+DROP TABLE IF EXISTS course;
+
+CREATE TABLE course (
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	title VARCHAR(128) UNIQUE DEFAULT NULL,
+	instructor_id INT DEFAULT NULL,
+    FOREIGN KEY (instructor_id) REFERENCES instructor(id) 
+	ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
+DROP TABLE IF EXISTS review;
+
+CREATE TABLE review (
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    comment VARCHAR(256) DEFAULT NULL,
+    course_id INT DEFAULT NULL,
+    FOREIGN KEY (course_id) REFERENCES course(id) 
+	ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
+DROP TABLE IF EXISTS student;
+
+CREATE TABLE student (
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(45) DEFAULT NULL,
+	last_name VARCHAR(45) DEFAULT NULL,
+    email VARCHAR(45) DEFAULT NULL,
+	date_of_birth DATETIME DEFAULT NULL
+);
+
+DROP TABLE IF EXISTS course_student;
+
+CREATE TABLE course_student (
+	course_id INT NOT NULL,
+	student_id INT NOT NULL,
+	PRIMARY KEY (course_id, student_id),
+	FOREIGN KEY (course_id) REFERENCES course (id) 
+	ON DELETE NO ACTION ON UPDATE NO ACTION,
+	FOREIGN KEY (student_id) REFERENCES student(id) 
+	ON DELETE NO ACTION ON UPDATE NO ACTION
+);
