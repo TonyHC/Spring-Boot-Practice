@@ -1,0 +1,33 @@
+# This is a comment
+name: Fred
+
+names: # Array
+  - Fred
+  - Rob
+  - Nate
+
+pound_sign: "#"
+
+book:
+  author: Hue Tare
+  publisher: Ross INC
+
+# Boolean: true
+truth: yes
+another_truth: True
+more_true: true
+
+# Boolean: false
+false: no #No, false, FALSE
+
+string_val: "This is a quote"
+
+include_new_lines: |
+  Test Line 1
+  Test Line 2
+  Test Line 3
+
+ignore_new_lines: >
+  This is
+  one long
+  sentence

@@ -1,0 +1,17 @@
+# Spring Boot automatically reads this YAML File, no need to load YAML File using @PropertySource
+com:
+  jms:
+    username: JMS Username
+    password: somepass
+    url: SomeUrl
+
+--- #File Separator
+spring:
+  config:
+    activate:
+      on-profile: FN
+
+# Override the Key-Value Using Spring Boot Profile Properties
+com:
+  jms:
+    password: Utilisateur
