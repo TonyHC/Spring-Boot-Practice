@@ -49,9 +49,11 @@ public class Recipe {
     private Set<Category> categories = new HashSet<>();
 
     public void setNotes(Notes notes) {
-        this.notes = notes;
-        // Establish the One To One Relationship
-        notes.setRecipe(this);
+        if (notes != null) {
+            this.notes = notes;
+            // Establish the One To One Relationship
+            notes.setRecipe(this);
+        }
     }
 
     // Helper Method: To Add Bi-Directional Relationship

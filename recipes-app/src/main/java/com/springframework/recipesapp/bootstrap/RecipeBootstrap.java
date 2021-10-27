@@ -129,7 +129,6 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         // Establish One To One Relationship: Recipe -> Notes
         guacRecipe.setNotes(guacNotes);
 
-
         guacRecipe.getIngredients().add(new Ingredient("ripe avocados", new BigDecimal(2), eachUom, guacRecipe));
         guacRecipe.getIngredients().add(new Ingredient("Kosher salt", new BigDecimal(".5"), teapoonUom, guacRecipe));
         guacRecipe.getIngredients().add(new Ingredient("fresh lime juice or lemon juice", new BigDecimal(2), tableSpoonUom, guacRecipe));
@@ -141,6 +140,10 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 
         guacRecipe.getCategories().add(americanCategory);
         guacRecipe.getCategories().add(mexicanCategory);
+
+        guacRecipe.setUrl("https://www.simplyrecipes.com/recipes/copy_cat_chipotle_guacamole/");
+        guacRecipe.setSource("Simply Recipe");
+        guacRecipe.setServings(3);
 
         // Add Recipe to Recipes List
         recipes.add(guacRecipe);
@@ -199,6 +202,10 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 
         tacosRecipe.getCategories().add(americanCategory);
         tacosRecipe.getCategories().add(mexicanCategory);
+
+        tacosRecipe.setUrl("https://www.simplyrecipes.com/recipes/turkey_taco_salad/");
+        tacosRecipe.setSource("Simply Recipe");
+        tacosRecipe.setServings(5);
 
         // Add Recipe to Recipes List
         recipes.add(tacosRecipe);
