@@ -75,6 +75,8 @@ public class IngredientController {
 
         Set<UnitOfMeasureCommand> unitOfMeasureCommands = unitOfMeasureService.listAllUnitOfMeasures();
 
+        model.addAttribute("recipeId", recipeId);
+
         model.addAttribute("ingredient", ingredientCommand);
 
         model.addAttribute("uomList", unitOfMeasureCommands);

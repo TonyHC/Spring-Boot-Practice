@@ -1,0 +1,27 @@
+# Specific MySQL DB Info
+# We need to go to 'Edit Configurations' and specify a 'Active Profiles' (say dev)
+# Spring then use MySQL instead of H2 DB since we specified a profile
+# If we don't specific a profile, Spring by default uses H2 DB
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/recipes
+    username: root
+    password: Beachhouse3-
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database: mysql
+    show-sql: true
+  sql:
+    init:
+      platform: mysql
+     # Hibernate creates the DB Schema using the Entity Classes to the file 'recipes_db_schema.sql'
+#    properties:
+#        javax:
+#          persistence:
+#            schema-generation:
+#              create-source: metadata
+#              scripts:
+#                action: create
+#                create-target: recipes_db_schema.sql
