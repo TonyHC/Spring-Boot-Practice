@@ -9,6 +9,7 @@ import org.springframework.jms.support.converter.MessageType;
 @Configuration
 public class JmsConfig {
     public static final String MY_QUEUE = "Hello-World";
+    public static final String MY_SEND_AND_RECEIVE_QUEUE = "Reply-Back-To-Me";
 
     @Bean
     public MessageConverter messageConverter() {
