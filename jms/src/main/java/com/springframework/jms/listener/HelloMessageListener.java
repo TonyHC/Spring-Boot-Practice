@@ -10,12 +10,13 @@ import org.springframework.messaging.handler.annotation.Headers;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
+import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import java.util.UUID;
 
 @RequiredArgsConstructor
-@Component
+//@Component
 public class HelloMessageListener {
     private final JmsTemplate jmsTemplate;
 
@@ -39,17 +40,22 @@ public class HelloMessageListener {
         // throw new RuntimeException("foo");
     }
 
+    // ActiveMQ Message implements the JMS Message
+    // Spring Framework Message is a generic message representation with headers and body
     @JmsListener(destination = JmsConfig.MY_SEND_AND_RECEIVE_QUEUE)
     public void listenForHello (@Payload HelloWorldMessage helloWorldMessage,
-                       @Headers MessageHeaders headers, Message message) throws JMSException {
-        // Build the payload of the reply message
+                                @Headers MessageHeaders headers, Message jmsMessage,
+                                org.springframework.messaging.Message springMessage) throws JMSException {
+        // Build the payload of the reply jmsMessage
         HelloWorldMessage payloadMessage = HelloWorldMessage
                 .builder()
                 .id(UUID.randomUUID())
                 .message("Hello")
                 .build();
 
-        // Set the payload of the reply message from temporarily message queue
-        jmsTemplate.convertAndSend(message.getJMSReplyTo(), payloadMessage);
+        // jmsTemplate.convertAndSend((Destination) springMessage.getHeaders().get("jms_replyTo"), "Got it");
+
+        // Set the payload of the reply jmsMessage from temporarily jmsMessage queue
+        jmsTemplate.convertAndSend(jmsMessage.getJMSReplyTo(), payloadMessage);
     }
 }
